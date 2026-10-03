@@ -1,0 +1,62 @@
+---
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+
+// A long wave (8px wavelength) centred on y = 4, clipped to the link's width.
+const wave = `M0 4 Q2 1 4 4${Array.from({ length: 99 }, (_, i) => ` T${8 + i * 4} 4`).join("")}`;
+---
+
+<!-- biome-ignore lint/a11y/useAnchorContent: the label comes in through the slot -->
+<a href={href} target="_blank" rel="noopener">
+  <slot />
+  <svg class="underline" aria-hidden="true">
+    <path d={wave}></path>
+  </svg>
+</a>
+
+<style>
+a {
+  position: relative;
+  display: inline-block;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* Flat by default; the wave grows out of the line on hover and settles back. */
+.underline {
+  position: absolute;
+  left: 0;
+  top: calc(100% - 0.35em);
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.underline path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  transform-origin: 0 4px;
+  /* Not 0: a fully flattened (non-invertible) transform is not drawn. */
+  transform: scaleY(0.01);
+  transition:
+    transform 0.35s ease,
+    stroke 0.3s;
+}
+
+a:hover .underline path,
+a:focus-visible .underline path {
+  transform: scaleY(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .underline path {
+    transition: none;
+  }
+}
+</style>

@@ -1,6 +1,7 @@
 ---
 import Buoy from "../components/Buoy.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
+import WavyLink from "../components/WavyLink.astro";
 import { site } from "../data/site";
 import Base from "../layouts/Base.astro";
 ---
@@ -14,7 +15,7 @@ import Base from "../layouts/Base.astro";
     <ul>
       {site.links.map((link) => (
         <li>
-          <a href={link.href}>{link.label}</a>
+          <WavyLink href={link.href}>{link.label}</WavyLink>
         </li>
       ))}
     </ul>

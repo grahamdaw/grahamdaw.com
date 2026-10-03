@@ -86,17 +86,6 @@ ul {
   list-style: none;
 }
 
-a {
-  color: var(--ink);
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.3em;
-}
-
-a:hover {
-  text-decoration-style: wavy;
-}
-
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--ink);
