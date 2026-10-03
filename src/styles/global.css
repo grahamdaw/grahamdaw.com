@@ -1,0 +1,104 @@
+/* Theme tokens. Light is the default; dark follows the system
+   unless the visitor picks a theme with the toggle (data-theme). */
+:root {
+  color-scheme: light;
+  --bg: #fcfbfa;
+  --ink: #111111;
+  --muted: #555555;
+  --buoy: #f2a487;
+  --buoy-shade: #d9805f;
+  --lamp: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #000000;
+    --ink: #f5f5f5;
+    --muted: #a3a3a3;
+    --buoy: #e2866a;
+    --buoy-shade: #b9593d;
+    --lamp: 1;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #000000;
+  --ink: #f5f5f5;
+  --muted: #a3a3a3;
+  --buoy: #e2866a;
+  --buoy-shade: #b9593d;
+  --lamp: 1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family:
+    "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas,
+    monospace;
+  font-size: 1rem;
+  line-height: 1.7;
+  overflow: hidden;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 46rem;
+  padding: clamp(1.5rem, 9vh, 6rem) clamp(1.25rem, 6vw, 6rem);
+}
+
+h1 {
+  margin: 0 0 1.5rem;
+  font-size: clamp(2.25rem, 7vw, 3.75rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+p {
+  margin: 0 0 1.75rem;
+  max-width: 58ch;
+  color: var(--muted);
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+}
+
+a:hover {
+  text-decoration-style: wavy;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}

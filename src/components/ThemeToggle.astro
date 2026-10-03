@@ -1,0 +1,48 @@
+<button class="theme" id="theme" type="button"></button>
+
+<style>
+.theme {
+  position: fixed;
+  top: clamp(1rem, 3vh, 2rem);
+  right: clamp(1.25rem, 4vw, 3rem);
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.theme:hover {
+  color: var(--ink);
+}
+</style>
+
+<script>
+const root = document.documentElement;
+const button = document.getElementById("theme") as HTMLButtonElement;
+const query = window.matchMedia("(prefers-color-scheme: dark)");
+
+const isDark = () =>
+  root.dataset.theme ? root.dataset.theme === "dark" : query.matches;
+
+const render = () => {
+  const target = isDark() ? "light" : "dark";
+  button.textContent = target;
+  button.setAttribute("aria-label", `Switch to ${target} mode`);
+};
+
+button.addEventListener("click", () => {
+  const next = isDark() ? "light" : "dark";
+  root.dataset.theme = next;
+  try {
+    localStorage.setItem("theme", next);
+  } catch {}
+  render();
+});
+
+query.addEventListener("change", render);
+render();
+</script>

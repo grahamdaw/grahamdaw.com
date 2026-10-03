@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Graham Daw</title>
+  <path
+    d="M30 6v10"
+    stroke="#111"
+    stroke-width="3"
+    stroke-linecap="round"
+    fill="none"
+  />
+  <path
+    d="M14 56l5-26c1-8 7-12 13-12s12 4 13 12l5 26z"
+    fill="#f2a487"
+    stroke="#111"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+</svg>

@@ -1,0 +1,276 @@
+<div class="scene" aria-hidden="true">
+  <svg
+    viewBox="0 0 1200 500"
+    preserveAspectRatio="xMidYMax slice"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <title>A buoy bobbing on still water</title>
+    <defs>
+      <!-- Everything above the waterline (y = 250) -->
+      <clipPath id="above">
+        <rect x="-200" y="-100" width="1600" height="350"></rect>
+      </clipPath>
+      <linearGradient id="fadeGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fff"></stop>
+        <stop offset="1" stop-color="#000"></stop>
+      </linearGradient>
+      <mask
+        id="fade"
+        maskUnits="userSpaceOnUse"
+        x="-200"
+        y="250"
+        width="1600"
+        height="250"
+      >
+        <rect
+          x="-200"
+          y="250"
+          width="1600"
+          height="250"
+          fill="url(#fadeGrad)"
+        ></rect>
+      </mask>
+
+      <!-- The buoy, drawn around the waterline point (680, 250) -->
+      <g id="buoy" transform="translate(680 250)">
+        <clipPath id="bodyShape">
+          <path
+            d="M-48 6 L-32 -60 C-30 -82 -16 -92 0 -92 C16 -92 30 -82 32 -60 L48 6 Z"
+          ></path>
+        </clipPath>
+        <path
+          class="buoy-fill"
+          d="M-48 6 L-32 -60 C-30 -82 -16 -92 0 -92 C16 -92 30 -82 32 -60 L48 6 Z"
+        ></path>
+        <rect
+          class="buoy-shade"
+          x="14"
+          y="-100"
+          width="40"
+          height="110"
+          clip-path="url(#bodyShape)"
+        ></rect>
+        <path
+          class="outline"
+          d="M-48 6 L-32 -60 C-30 -82 -16 -92 0 -92 C16 -92 30 -82 32 -60 L48 6 Z"
+        ></path>
+        <path class="outline seam" d="M-32 -60 Q0 -52 32 -60"></path>
+        <!-- Long hook: a tall loop that rises straight up from the centre of the dome.
+             The rope is tied to a knot on the ring (cx 5.14, cy -58.13 in hook space). -->
+        <g transform="translate(0 -90)">
+          <path class="eyelet" d="M-4 0 L-8 -52 A8 8 0 0 1 8 -52 L4 0"></path>
+          <line class="eyelet" x1="-5" y1="-16" x2="5" y2="-16"></line>
+          <circle class="knot" cx="5.14" cy="-58.13" r="3.6"></circle>
+        </g>
+        <g class="lamp">
+          <circle class="lamp-glow" cx="-16" cy="-84" r="16"></circle>
+          <circle class="lamp-core" cx="-16" cy="-84" r="5"></circle>
+        </g>
+      </g>
+
+      <!-- Mooring line from the knot to the far side -->
+      <path
+        id="tether"
+        class="tether-line"
+        d="M678.7 101.8 Q 980 205 1400 252"
+      ></path>
+    </defs>
+
+    <!-- Reflection: the same objects, mirrored and faded -->
+    <g mask="url(#fade)" opacity=".35">
+      <g transform="translate(0 500) scale(1 -1)">
+        <g clip-path="url(#above)">
+          <g class="bob">
+            <g class="rock"><use href="#buoy"></use></g>
+          </g>
+          <g class="tether"><use href="#tether"></use></g>
+        </g>
+      </g>
+    </g>
+
+    <!-- Water -->
+    <line class="water-dash" x1="260" y1="284" x2="520" y2="284"></line>
+    <line class="water-dash" x1="820" y1="300" x2="1100" y2="300"></line>
+    <line class="water-dash" x1="420" y1="338" x2="640" y2="338"></line>
+    <ellipse class="ripple r1" cx="680" cy="250" rx="170" ry="12"></ellipse>
+    <ellipse class="ripple r2" cx="680" cy="250" rx="170" ry="12"></ellipse>
+
+    <!-- Buoy -->
+    <g clip-path="url(#above)">
+      <g class="bob">
+        <g class="rock"><use href="#buoy"></use></g>
+      </g>
+      <g class="tether"><use href="#tether"></use></g>
+    </g>
+  </svg>
+</div>
+
+<style>
+.scene {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62vh;
+  min-height: 300px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.scene svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.buoy-fill {
+  fill: var(--buoy);
+}
+.buoy-shade {
+  fill: var(--buoy-shade);
+}
+.outline {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.eyelet {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.seam {
+  stroke-width: 2.5;
+}
+.knot {
+  fill: var(--ink);
+}
+.tether-line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.water-dash {
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.15;
+}
+.ripple {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+}
+.lamp {
+  opacity: var(--lamp);
+}
+.lamp-glow {
+  fill: #ffc25c;
+  opacity: 0.3;
+}
+.lamp-core {
+  fill: #ffd98a;
+}
+
+/* Motion. The buoy bobs and rocks; the rope's far end stays fixed. */
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(12px);
+  }
+}
+@keyframes rock {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+/* The rope's near end follows the knot on the ring (bob and rock share one
+     4s cycle), so the rope is scaled about its fixed far end. */
+@keyframes tether {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(0.982, 0.917);
+  }
+}
+/* Ripples fade in first, then widen and fade out. */
+@keyframes ripple {
+  0% {
+    transform: scale(0.12);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+@keyframes blink {
+  0%,
+  10% {
+    opacity: var(--lamp);
+  }
+  16%,
+  100% {
+    opacity: calc(var(--lamp) * 0.12);
+  }
+}
+
+.bob {
+  animation: bob 4s ease-in-out infinite;
+}
+.rock {
+  transform-origin: 680px 250px;
+  animation: rock 4s ease-in-out infinite;
+}
+.tether {
+  transform-origin: 1400px 252px;
+  animation: tether 4s ease-in-out infinite;
+}
+.ripple {
+  transform-origin: 680px 250px;
+  animation: ripple 4s ease-out infinite;
+}
+.r2 {
+  animation-delay: -2s;
+}
+.lamp {
+  animation: blink 3s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bob,
+  .rock,
+  .tether,
+  .ripple,
+  .lamp {
+    animation: none;
+  }
+  .rock {
+    transform: rotate(-2.5deg);
+  } /* matches the rope's start point */
+  .r1 {
+    opacity: 0.35;
+    transform: scale(0.6);
+  }
+  .r2 {
+    display: none;
+  }
+}
+</style>

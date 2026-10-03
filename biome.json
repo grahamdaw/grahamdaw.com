@@ -1,0 +1,41 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": ["**", "!**/dist", "!**/.astro"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space"
+  },
+  "html": {
+    "experimentalFullSupportEnabled": true,
+    "formatter": { "enabled": true }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "correctness": {
+        "noUnusedImports": "warn",
+        "noUnusedVariables": {
+          "level": "warn",
+          "options": { "ignoreRestSiblings": true }
+        }
+      },
+      "style": {
+        "useBlockStatements": "warn"
+      },
+      "suspicious": {
+        "noDoubleEquals": {
+          "level": "error",
+          "options": { "ignoreNull": false }
+        }
+      }
+    }
+  }
+}
