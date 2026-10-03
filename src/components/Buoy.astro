@@ -111,7 +111,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 62vh;
+  /* The SVG is sliced from the bottom, so a scene wider than ~2.85:1 crops the
+     top of the hook (y ≈ 80 of 500). 36vw keeps it at or below that ratio. */
+  height: max(62vh, 36vw);
   min-height: 300px;
   z-index: 0;
   pointer-events: none;
