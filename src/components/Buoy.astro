@@ -119,6 +119,15 @@
   pointer-events: none;
 }
 
+
+/* On narrow screens the buoy's hook reaches up into the links. Sit the scene
+   lower so they clear; the extra water is just cropped off the bottom. */
+@media (max-width: 640px) {
+  .scene {
+    bottom: -12vh;
+  }
+}
+
 .scene svg {
   display: block;
   width: 100%;
